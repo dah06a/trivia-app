@@ -1,0 +1,16 @@
+.main {
+    height: 90vh;
+    margin-top: 5vh;
+    color: black;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 0,
+        rgba(239, 153, 120),
+        rgba(255,0,0,0) 70%),
+      radial-gradient(circle at 10% 75%,
+        rgba(103, 199, 239),
+        rgba(0,0,255,0) 70%),
+      radial-gradient(circle at 90% 75%,
+        rgb(120, 230, 120),
+        rgba(0,255,0,0) 70%) beige;
+}

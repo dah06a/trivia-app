@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { decodeQuestions } from './utils/decodeQuestions';
-import './App.css';
+import Main from './Main';
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	// Async data fetch function with G2i supplied api url
-	const getTriviaData = async () => {
+	const getData = async () => {
 		setError(false);
 		setIsLoading(true);
 		const url = "https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean";
@@ -27,31 +27,13 @@ function App() {
 		setIsLoading(false);
 	}
 
-	// Fetch trivia data when the app loads for the first time
-	useEffect(() => {
-		getTriviaData();
-	}, []);
-
-	const example = isLoading
-		? <div>Loading...</div>
-		: triviaData.map((item, index) => {
-			return (
-				<div key={index}>
-					<p>{item.question}</p>
-				</div>
-			);
-		});
-
-	const errorMessage = error
-		? <div><h1>There is an error!</h1></div>
-		: null
-
 	return (
-		<div>
-			<h1>G2i Trivia App</h1>
-			{example}
-			{errorMessage}
-		</div>
+		<Main
+			triviaData={triviaData}
+			error={error}
+			isLoading={isLoading}
+			getData={() => getData()}
+		/>
 	);
 }
 

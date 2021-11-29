@@ -8,6 +8,7 @@ function App() {
 	const [triviaData, setTriviaData] = useState([]);
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
+	const [currQuestion, setCurrQuestion] = useState(-1);
 
 	// Async data fetch function with G2i supplied api url
 	const getData = async () => {
@@ -27,12 +28,24 @@ function App() {
 		setIsLoading(false);
 	}
 
+	const goToNextQuestion = () => {
+		const questionNumber = currQuestion;
+		setCurrQuestion(questionNumber + 1);
+	}
+
+	// const resetGame = () => {
+	// 	setTriviaData([]);
+	//  setCurrQuestion(-1);
+	// }
+
 	return (
 		<Main
 			triviaData={triviaData}
 			error={error}
 			isLoading={isLoading}
+			currQuestion={currQuestion}
 			getData={() => getData()}
+			goToNextQuestion={() => goToNextQuestion()}
 		/>
 	);
 }

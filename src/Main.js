@@ -1,13 +1,23 @@
 import React from 'react';
+import Title from './Title';
 import './Main.css';
 
-function Main() {
+function Main({ getData, triviaData, currQuestion }) {
+
+    let currMessage = 'Welcome To The Trivia Challenge!';
+    if (currQuestion >= triviaData.length) {
+        currMessage = 'Your Results:';
+    }
+
+    const currTriviaItem = triviaData ? triviaData[currQuestion] : null;
+
+
     return(
         <div className="container main">
 
             <div className="row h-25 align-items-center">
                 <div className="col ">
-                    <h2>Main Title</h2>
+                    <Title message={currMessage} triviaItem={currTriviaItem} />
                 </div>
             </div>
 
@@ -19,6 +29,7 @@ function Main() {
 
             <div className="row h-25 align-items-center">
                 <div className="col">
+                    <button onClick={() => getData()}>Get Data</button>
                     Main Buttons
                 </div>
             </div>

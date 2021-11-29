@@ -1,14 +1,15 @@
 import React from 'react';
 import Title from './Title';
+import Select from './Select';
 import './Main.css';
 
-function Main({ getData, triviaData, currQuestion }) {
+function Main({ triviaData, error, isLoading, currQuestion, startGame, answerQuestion }) {
 
-    let currMessage = 'Welcome To The Trivia Challenge!';
-    if (currQuestion >= triviaData.length) {
-        currMessage = 'Your Results:';
-    }
+    console.log(error, isLoading);
 
+    // Conditionally create title question or message
+    const currTitleMessage = currQuestion >= triviaData.length ? 'Your Results:' : 'Welcome To The Trivia Challenge!';
+    const currSelectMessage = currQuestion >= triviaData.length ? 'Try Again?' : 'Start Game!';
     const currTriviaItem = triviaData ? triviaData[currQuestion] : null;
 
 
@@ -17,7 +18,10 @@ function Main({ getData, triviaData, currQuestion }) {
 
             <div className="row h-25 align-items-center">
                 <div className="col ">
-                    <Title message={currMessage} triviaItem={currTriviaItem} />
+                    <Title
+                        message={currTitleMessage}
+                        triviaItem={currTriviaItem}
+                    />
                 </div>
             </div>
 
@@ -29,8 +33,12 @@ function Main({ getData, triviaData, currQuestion }) {
 
             <div className="row h-25 align-items-center">
                 <div className="col">
-                    <button onClick={() => getData()}>Get Data</button>
-                    Main Buttons
+                    <Select
+                        message={currSelectMessage}
+                        triviaItem={currTriviaItem}
+                        startGame={startGame}
+                        answerQuestion={(response) => answerQuestion(response)}
+                    />
                 </div>
             </div>
 

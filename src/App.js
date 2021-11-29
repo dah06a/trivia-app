@@ -28,15 +28,35 @@ function App() {
 		setIsLoading(false);
 	}
 
-	const goToNextQuestion = () => {
+	// Add new property and update state triviaData to show right/wrong response from user
+	const answerQuestion = (response) => {
+		let updatedTriviaItem = triviaData[currQuestion];
+		updatedTriviaItem.responseCorrect = response === updatedTriviaItem.correct_answer ? true : false;
+
+		const updatedTriviaData = triviaData.map((triviaItem, index) => {
+			if (index === currQuestion) triviaItem = updatedTriviaItem;
+			return triviaItem;
+		});
+
+		setTriviaData(updatedTriviaData);
 		const questionNumber = currQuestion;
 		setCurrQuestion(questionNumber + 1);
 	}
 
-	// const resetGame = () => {
-	// 	setTriviaData([]);
-	//  setCurrQuestion(-1);
-	// }
+	// All state settings needed to reset game
+	const resetGame = () => {
+		setTriviaData([]);
+		setError(null);
+		setIsLoading(false)
+		setCurrQuestion(-1);
+	}
+
+	// Main function to start a new game with new questions
+	const startGame = () => {
+		resetGame();
+		getData();
+		setCurrQuestion(0);
+	}
 
 	return (
 		<Main
@@ -44,8 +64,8 @@ function App() {
 			error={error}
 			isLoading={isLoading}
 			currQuestion={currQuestion}
-			getData={() => getData()}
-			goToNextQuestion={() => goToNextQuestion()}
+			startGame={startGame}
+			answerQuestion={(response) => answerQuestion(response)}
 		/>
 	);
 }

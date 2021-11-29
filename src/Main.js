@@ -1,5 +1,6 @@
 import React from 'react';
 import Title from './Title';
+import Body from './Body';
 import Select from './Select';
 import './Main.css';
 
@@ -9,7 +10,8 @@ function Main({ triviaData, error, isLoading, currQuestion, startGame, answerQue
 
     // Conditionally create title question or message
     const currTitleMessage = currQuestion >= triviaData.length ? 'Your Results:' : 'Welcome To The Trivia Challenge!';
-    const currSelectMessage = currQuestion >= triviaData.length ? 'Try Again?' : 'Start Game!';
+    const currSelectMessage = currQuestion >= triviaData.length ? 'Try Again?' : 'Begin!';
+    const currBodyMessage = currQuestion >= triviaData.length ? null : 'You will be shown 10 true or false questions.  Can you score 100%?';
     const currTriviaItem = triviaData ? triviaData[currQuestion] : null;
 
 
@@ -27,7 +29,7 @@ function Main({ triviaData, error, isLoading, currQuestion, startGame, answerQue
 
             <div className="row h-50 align-items-center">
                 <div className="col">
-                    Main Body
+                    <Body message={currBodyMessage} triviaItem={currTriviaItem} />
                 </div>
             </div>
 

@@ -58,6 +58,16 @@ function App() {
 		setCurrQuestion(0);
 	}
 
+	const getScore = () => {
+        let score = 0;
+        triviaData.forEach(item => {
+            if (item.responseCorrect) {
+                score++;
+            }
+        });
+        return score;
+    }
+
 	return (
 		<Main
 			triviaData={triviaData}
@@ -66,6 +76,7 @@ function App() {
 			currQuestion={currQuestion}
 			startGame={startGame}
 			answerQuestion={(response) => answerQuestion(response)}
+			getScore={getScore}
 		/>
 	);
 }

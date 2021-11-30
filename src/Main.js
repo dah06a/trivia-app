@@ -4,15 +4,15 @@ import Body from './Body';
 import Select from './Select';
 import './Main.css';
 
-function Main({ triviaData, error, isLoading, currQuestion, startGame, answerQuestion }) {
+function Main({ triviaData, error, isLoading, currQuestion, startGame, answerQuestion, getScore }) {
 
     console.log(error, isLoading);
 
     // Conditionally create title question or message
     const currTitleMessage = currQuestion >= triviaData.length ? 'Your Results:' : 'Welcome To The Trivia Challenge!';
     const currSelectMessage = currQuestion >= triviaData.length ? 'Try Again?' : 'Begin!';
-    const currBodyMessage = currQuestion >= triviaData.length ? null : 'You will be shown 10 true or false questions.  Can you score 100%?';
-    const currTriviaItem = triviaData ? triviaData[currQuestion] : null;
+    const currBodyMessage = currQuestion >= triviaData.length ? `You scored ${getScore().toString()} out of 10` : 'Ready To Play?';
+    const currTriviaItem = triviaData && currQuestion < triviaData.length ? triviaData[currQuestion] : null;
 
 
     return(
@@ -28,8 +28,12 @@ function Main({ triviaData, error, isLoading, currQuestion, startGame, answerQue
             </div>
 
             <div className="row h-50 align-items-center">
-                <div className="col">
-                    <Body message={currBodyMessage} triviaItem={currTriviaItem} />
+                <div className="col col-md-6 m-auto">
+                    <Body
+                        message={currBodyMessage}
+                        questionNumber={currQuestion+1}
+                        triviaItem={currTriviaItem}
+                    />
                 </div>
             </div>
 

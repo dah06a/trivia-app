@@ -1,25 +1,39 @@
 import React from "react";
+import Results from './Results';
 
-function Body({ message, triviaItem }) {
+function Body({ message, questionNumber, triviaItem }) {
 
-    const renderTitle = () => {
+    const renderBodyHeader = () => {
         if (triviaItem) {
-            return  (
-                <div>
-                    <h3><strong>True Or False?</strong></h3>
-                    <h4> {triviaItem.question}</h4>
-                </div>
-            );
+            return `Question ${questionNumber.toString()}:`
+        } else {
+            return message;
         }
-        return <h4>{ message }</h4>;
     }
 
-    const currTitle = renderTitle();
+    const renderBodyMessage = () => {
+        if (triviaItem) {
+            return <h4 className="card-text">{triviaItem.question}</h4>;
+        } else {
+            return questionNumber === 0
+                ? <h4 className="card-text">You will be presented with 10 true or false questions.  Can you score 100%?</h4>
+                : <Results />
+        }
+
+    }
+
+    const currBodyHeader = renderBodyHeader();
+    const currBodyMessage = renderBodyMessage();
 
     return (
-        <>
-            {currTitle}
-        </>
+        <div className="card bh-light p-3">
+            <div className="card-header">
+                <h3>{currBodyHeader}</h3>
+            </div>
+            <div className="card-body">
+                {currBodyMessage}
+            </div>
+        </div>
     );
 }
 

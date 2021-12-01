@@ -22,7 +22,7 @@ function App() {
 			const decodedData = decodeQuestions(data.results);
 			setTriviaData(decodedData);
 			setLocation('game');
-			console.log('Trivia data successfully fetched: ', decodedData);
+			console.log('Trivia data successfully fetched.');
 		} catch (e) {
 			setError(true);
 			console.error('There was a problem retreving the triva data in the App component useEffect: ', e);

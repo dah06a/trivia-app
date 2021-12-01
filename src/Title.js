@@ -1,13 +1,12 @@
 import React from "react";
 
-function Title({ location, triviaItem, isLoading, error }) {
+function Title({ location, triviaItem, getScore, isLoading, error }) {
 
     // Conditionally render title based on location
     const renderTitle = () => {
         if (error || isLoading) {
             return null
         }
-
         if (location === 'start') {
             return <h1>Welcome To The Trivia Challenge!</h1>
         }
@@ -20,7 +19,7 @@ function Title({ location, triviaItem, isLoading, error }) {
             );
         }
         if (location === 'results') {
-            return <h1>Results:</h1>
+            return <h1>{`Results: ${getScore().toString()}/10`}</h1>
         }
         return <h3 className="text-danger">Error: Please Refresh</h3>
     }

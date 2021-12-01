@@ -19,6 +19,7 @@ function Main({ triviaData, error, isLoading, location, currQuestion, startGame,
                     <Title
                         location={location}
                         triviaItem={currTriviaItem}
+                        getScore={getScore}
                         isLoading={isLoading}
                         error={error}
                     />

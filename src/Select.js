@@ -31,7 +31,7 @@ function Select({ location, startGame, answerQuestion, error, isLoading }) {
             );
         }
         if (location === 'results') {
-            return <button className="btn btn-lg btn-warning" onClick={startGame}>Try Again?</button>
+            return <button className="btn btn-lg btn-warning" onClick={startGame}>Play Again?</button>
         }
         return <h3 className="text-danger">Error: Please Refresh</h3>
     }

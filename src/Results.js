@@ -3,7 +3,7 @@ import React from "react";
 function Results({ triviaData }) {
 
     const renderResultRows = () => {
-        return triviaData.map(triviaItem => {
+        return triviaData.map((triviaItem, index) => {
             const correct = triviaItem.response === triviaItem.correct_answer;
             const textColor = correct ? 'text-success' : 'text-danger';
             const indicatorSymbol = correct ? '+' : '-';
@@ -12,8 +12,9 @@ function Results({ triviaData }) {
                     <div className="col-sm d-flex align-items-center justify-content-center">
                         <h1 className='card-text align-self-center'>{indicatorSymbol}</h1>
                     </div>
-                    <div className="col-sm d-flex align-items-center justify-content-center">
-                        <p className='card-text'>{`${triviaItem.question.slice(0, 50)}...`}</p>
+                    <div className="col-sm d-flex align-items-center">
+
+                        <p className='card-text'>{`${index+1}. ${triviaItem.question.slice(0, 50)}...`}</p>
                     </div>
                     <div className="col-sm ">
                         <div>

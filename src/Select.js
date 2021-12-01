@@ -1,9 +1,12 @@
 import React from "react";
 
-function Select({ location, startGame, answerQuestion }) {
+function Select({ location, startGame, answerQuestion, error, isLoading }) {
 
     // Conditionally render select buttons based on location
     const renderSelect = () => {
+        if (error || isLoading) {
+            return null;
+        }
         if (location === 'start') {
             return <button className="btn btn-lg btn-primary" onClick={startGame}>Begin!</button>
         }

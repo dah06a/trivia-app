@@ -1,9 +1,13 @@
 import React from "react";
 
-function Title({ location, triviaItem }) {
+function Title({ location, triviaItem, isLoading, error }) {
 
     // Conditionally render title based on location
     const renderTitle = () => {
+        if (error || isLoading) {
+            return null
+        }
+
         if (location === 'start') {
             return <h1>Welcome To The Trivia Challenge!</h1>
         }

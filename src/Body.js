@@ -1,10 +1,16 @@
 import React from "react";
 import Results from './Results';
 
-function Body({ location, questionNumber, triviaItem, triviaData, getScore }) {
+function Body({ location, questionNumber, triviaItem, triviaData, getScore, isLoading, error }) {
 
     // Conditionally render body header based on location
     const renderBodyHeader = () => {
+        if (error) {
+            return null;
+        }
+        if (isLoading) {
+            return <h3>Loading...</h3>;
+        }
         if (location === 'start') {
             return <h3>Ready To Play?</h3>
         }
@@ -19,6 +25,16 @@ function Body({ location, questionNumber, triviaItem, triviaData, getScore }) {
 
     // Conditionally render body content based on location
     const renderBodyContent = () => {
+        if (error) {
+            return <h3 className="text-danger m-auto">Error: Please Refresh</h3>;
+        }
+        if (isLoading) {
+            return (
+                <div className="spinner-border text-primary m-auto align-self-center" style={{ width: '5rem', height: '5rem' }} role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            );
+        }
         if (location === 'start') {
             return <h4 className="card-text m-auto align-self-center">You will be presented with 10 true or false questions.  Can you score 100%?</h4>
         }

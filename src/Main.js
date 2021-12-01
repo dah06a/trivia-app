@@ -4,7 +4,7 @@ import Body from './Body';
 import Select from './Select';
 import './Main.css';
 
-function Main({ triviaData, location, currQuestion, startGame, answerQuestion, getScore }) {
+function Main({ triviaData, error, isLoading, location, currQuestion, startGame, answerQuestion, getScore }) {
 
     // Get current trivia item
     const currTriviaItem = location === 'game' ? triviaData[currQuestion] : null;
@@ -19,6 +19,8 @@ function Main({ triviaData, location, currQuestion, startGame, answerQuestion, g
                     <Title
                         location={location}
                         triviaItem={currTriviaItem}
+                        isLoading={isLoading}
+                        error={error}
                     />
                 </div>
             </div>
@@ -32,6 +34,8 @@ function Main({ triviaData, location, currQuestion, startGame, answerQuestion, g
                         triviaItem={currTriviaItem}
                         triviaData={triviaData}
                         getScore={getScore}
+                        isLoading={isLoading}
+                        error={error}
                     />
                 </div>
             </div>
@@ -44,6 +48,8 @@ function Main({ triviaData, location, currQuestion, startGame, answerQuestion, g
                         triviaItem={currTriviaItem}
                         startGame={startGame}
                         answerQuestion={(response) => answerQuestion(response)}
+                        isLoading={isLoading}
+                        error={error}
                     />
                 </div>
             </div>

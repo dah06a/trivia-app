@@ -8,7 +8,8 @@ function App() {
 	const [triviaData, setTriviaData] = useState([]);
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
-	const [currQuestion, setCurrQuestion] = useState(-1);
+	const [location, setLocation] = useState('start');
+	const [currQuestion, setCurrQuestion] = useState(0);
 
 	// Async data fetch function with G2i supplied api url
 	const getData = async () => {
@@ -20,6 +21,7 @@ function App() {
 			const data = await response.json();
 			const decodedData = decodeQuestions(data.results);
 			setTriviaData(decodedData);
+			setLocation('game');
 			console.log('Trivia data successfully fetched: ', decodedData);
 		} catch (e) {
 			setError(true);
@@ -28,7 +30,7 @@ function App() {
 		setIsLoading(false);
 	}
 
-	// Add new property and update state triviaData to show right/wrong response from user
+	// Add new property and update state triviaData to show response from user
 	const answerQuestion = (response) => {
 		let updatedTriviaItem = triviaData[currQuestion];
 		updatedTriviaItem.response = response;
@@ -39,8 +41,12 @@ function App() {
 		});
 
 		setTriviaData(updatedTriviaData);
-		const questionNumber = currQuestion;
-		setCurrQuestion(questionNumber + 1);
+
+		if (currQuestion + 1 >= triviaData.length) {
+			setLocation('results');
+		} else {
+			setCurrQuestion(currQuestion + 1);
+		}
 	}
 
 	// All state settings needed to reset game
@@ -48,16 +54,16 @@ function App() {
 		setTriviaData([]);
 		setError(null);
 		setIsLoading(false)
-		setCurrQuestion(-1);
+		setCurrQuestion(0);
 	}
 
 	// Main function to start a new game with new questions
 	const startGame = () => {
 		resetGame();
 		getData();
-		setCurrQuestion(0);
 	}
 
+	// Function to retreive score based on current triviaData state
 	const getScore = () => {
         let score = 0;
         triviaData.forEach(triviaItem => {
@@ -68,11 +74,13 @@ function App() {
         return score;
     }
 
+	// Main Return Function
 	return (
 		<Main
 			triviaData={triviaData}
 			error={error}
 			isLoading={isLoading}
+			location={location}
 			currQuestion={currQuestion}
 			startGame={startGame}
 			answerQuestion={(response) => answerQuestion(response)}

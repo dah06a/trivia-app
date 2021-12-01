@@ -2,6 +2,7 @@ import React from "react";
 
 function Results({ triviaData }) {
 
+    // Conditionally render results based on user responses
     const renderResultRows = () => {
         return triviaData.map((triviaItem, index) => {
             const correct = triviaItem.response === triviaItem.correct_answer;
@@ -29,6 +30,7 @@ function Results({ triviaData }) {
 
     const resultRows = renderResultRows();
 
+    // Main Return Function
     return (
         <div className="container">
             {resultRows}

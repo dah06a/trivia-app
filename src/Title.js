@@ -1,9 +1,13 @@
 import React from "react";
 
-function Title({ message, triviaItem }) {
+function Title({ location, triviaItem }) {
 
+    // Conditionally render title based on location
     const renderTitle = () => {
-        if (triviaItem) {
+        if (location === 'start') {
+            return <h1>Welcome To The Trivia Challenge!</h1>
+        }
+        if (location === 'game') {
             return  (
                 <div>
                     <h1><strong>Category:</strong> {triviaItem.category}</h1>
@@ -11,16 +15,16 @@ function Title({ message, triviaItem }) {
                 </div>
             );
         }
-        return <h1>{ message }</h1>;
+        if (location === 'results') {
+            return <h1>Results:</h1>
+        }
+        return <h3 className="text-danger">Error: Please Refresh</h3>
     }
 
     const currTitle = renderTitle();
 
-    return (
-        <>
-            {currTitle}
-        </>
-    );
+    // Main Return Function
+    return currTitle;
 }
 
 export default Title;

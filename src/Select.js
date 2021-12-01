@@ -1,9 +1,13 @@
 import React from "react";
 
-function Select({ message, triviaItem, startGame, answerQuestion }) {
+function Select({ location, startGame, answerQuestion }) {
 
+    // Conditionally render select buttons based on location
     const renderSelect = () => {
-        if (triviaItem) {
+        if (location === 'start') {
+            return <button className="btn btn-lg btn-primary" onClick={startGame}>Begin!</button>
+        }
+        if (location === 'game') {
             return (
                 <div className="row">
                     <div className="col">
@@ -23,22 +27,16 @@ function Select({ message, triviaItem, startGame, answerQuestion }) {
                 </div>
             );
         }
-        return (
-            <button
-                className="btn btn-lg btn-primary"
-                onClick={startGame}
-                >{message}
-            </button>
-        );
+        if (location === 'results') {
+            return <button className="btn btn-lg btn-warning" onClick={startGame}>Try Again?</button>
+        }
+        return <h3 className="text-danger">Error: Please Refresh</h3>
     }
 
     const currSelect = renderSelect();
 
-    return (
-        <>
-            {currSelect}
-        </>
-    );
+    // Main Return Function
+    return currSelect;
 }
 
 export default Select;

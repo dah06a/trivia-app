@@ -31,7 +31,7 @@ function App() {
 	// Add new property and update state triviaData to show right/wrong response from user
 	const answerQuestion = (response) => {
 		let updatedTriviaItem = triviaData[currQuestion];
-		updatedTriviaItem.responseCorrect = response === updatedTriviaItem.correct_answer ? true : false;
+		updatedTriviaItem.response = response;
 
 		const updatedTriviaData = triviaData.map((triviaItem, index) => {
 			if (index === currQuestion) triviaItem = updatedTriviaItem;
@@ -60,8 +60,8 @@ function App() {
 
 	const getScore = () => {
         let score = 0;
-        triviaData.forEach(item => {
-            if (item.responseCorrect) {
+        triviaData.forEach(triviaItem => {
+            if (triviaItem.response === triviaItem.correct_answer) {
                 score++;
             }
         });

@@ -9,7 +9,7 @@ function Main({ triviaData, error, isLoading, currQuestion, startGame, answerQue
     console.log(error, isLoading);
 
     // Conditionally create title question or message
-    const currTitleMessage = currQuestion >= triviaData.length ? 'Your Results:' : 'Welcome To The Trivia Challenge!';
+    const currTitleMessage = currQuestion >= triviaData.length ? 'Results:' : 'Welcome To The Trivia Challenge!';
     const currSelectMessage = currQuestion >= triviaData.length ? 'Try Again?' : 'Begin!';
     const currBodyMessage = currQuestion >= triviaData.length ? `You scored ${getScore().toString()} out of 10` : 'Ready To Play?';
     const currTriviaItem = triviaData && currQuestion < triviaData.length ? triviaData[currQuestion] : null;
@@ -19,7 +19,7 @@ function Main({ triviaData, error, isLoading, currQuestion, startGame, answerQue
         <div className="container main">
 
             <div className="row h-25 align-items-center">
-                <div className="col ">
+                <div className="col">
                     <Title
                         message={currTitleMessage}
                         triviaItem={currTriviaItem}
@@ -28,11 +28,12 @@ function Main({ triviaData, error, isLoading, currQuestion, startGame, answerQue
             </div>
 
             <div className="row h-50 align-items-center">
-                <div className="col col-md-6 m-auto">
+                <div className="col col-sm-10 col-lg-8 h-100 m-auto">
                     <Body
                         message={currBodyMessage}
                         questionNumber={currQuestion+1}
                         triviaItem={currTriviaItem}
+                        triviaData={triviaData}
                     />
                 </div>
             </div>

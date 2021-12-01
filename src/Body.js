@@ -1,7 +1,7 @@
 import React from "react";
 import Results from './Results';
 
-function Body({ message, questionNumber, triviaItem }) {
+function Body({ message, questionNumber, triviaItem, triviaData }) {
 
     const renderBodyHeader = () => {
         if (triviaItem) {
@@ -17,7 +17,7 @@ function Body({ message, questionNumber, triviaItem }) {
         } else {
             return questionNumber === 0
                 ? <h4 className="card-text">You will be presented with 10 true or false questions.  Can you score 100%?</h4>
-                : <Results />
+                : <Results triviaData={triviaData} />
         }
 
     }
@@ -26,11 +26,11 @@ function Body({ message, questionNumber, triviaItem }) {
     const currBodyMessage = renderBodyMessage();
 
     return (
-        <div className="card bh-light p-3">
+        <div className="card h-100 p-3" style={{overflowY: 'scroll', overflowX: 'hidden'}}>
             <div className="card-header">
                 <h3>{currBodyHeader}</h3>
             </div>
-            <div className="card-body">
+            <div className="card-body h-50">
                 {currBodyMessage}
             </div>
         </div>

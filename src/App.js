@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { decodeQuestions } from './utils/decodeQuestions';
 import Main from './Main';
 
 function App() {
@@ -10,6 +9,16 @@ function App() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [location, setLocation] = useState('start');
 	const [currQuestion, setCurrQuestion] = useState(0);
+
+	// Function to decode HTML coded strings from API data
+	const decodeQuestions = dataArray => {
+		dataArray.forEach(entry => {
+			const decodedEntry = new DOMParser().parseFromString(entry.question, 'text/html');
+			const decodedQuestion = decodedEntry.documentElement.textContent;
+			entry.question = decodedQuestion;
+		});
+		return dataArray;
+	}
 
 	// Async data fetch function with G2i supplied api url
 	const getData = async () => {
